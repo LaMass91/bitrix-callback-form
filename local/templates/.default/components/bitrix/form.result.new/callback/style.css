@@ -1,0 +1,247 @@
+.cbf {
+	--cbf-accent: #2f6fed;
+	--cbf-accent-dark: #2559c4;
+	--cbf-text: #1d2430;
+	--cbf-muted: #6b7480;
+	--cbf-border: #d7dce4;
+	--cbf-error: #d13b3b;
+
+	position: fixed;
+	inset: 0;
+	z-index: 10000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 16px;
+	color: var(--cbf-text);
+	font-family: inherit;
+	font-size: 15px;
+	line-height: 1.45;
+}
+
+body.cbf-lock {
+	overflow: hidden;
+}
+
+.cbf__overlay {
+	position: absolute;
+	inset: 0;
+	background: rgba(16, 21, 30, .55);
+	animation: cbf-fade .2s ease-out;
+}
+
+.cbf__window {
+	position: relative;
+	width: 100%;
+	max-width: 420px;
+	max-height: 100%;
+	overflow-y: auto;
+	padding: 28px 24px 24px;
+	border-radius: 14px;
+	background: #fff;
+	box-shadow: 0 18px 48px rgba(16, 21, 30, .28);
+	animation: cbf-appear .22s ease-out;
+}
+
+.cbf__close {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	width: 36px;
+	height: 36px;
+	padding: 0;
+	border: 0;
+	border-radius: 8px;
+	background: transparent;
+	color: var(--cbf-muted);
+	font-size: 26px;
+	line-height: 1;
+	cursor: pointer;
+}
+
+.cbf__close:hover,
+.cbf__close:focus-visible {
+	background: #f1f3f7;
+	color: var(--cbf-text);
+}
+
+.cbf__title {
+	margin: 0 0 6px;
+	font-size: 21px;
+	font-weight: 600;
+	line-height: 1.25;
+}
+
+.cbf__description {
+	margin: 0 0 18px;
+	color: var(--cbf-muted);
+}
+
+.cbf__field {
+	margin-bottom: 14px;
+}
+
+.cbf__label {
+	display: block;
+	margin-bottom: 5px;
+	font-size: 14px;
+	color: var(--cbf-muted);
+}
+
+.cbf__required {
+	margin-left: 2px;
+	color: var(--cbf-error);
+}
+
+.cbf__control {
+	display: block;
+	width: 100%;
+	padding: 11px 13px;
+	border: 1px solid var(--cbf-border);
+	border-radius: 9px;
+	background: #fff;
+	color: inherit;
+	font: inherit;
+	transition: border-color .15s ease;
+}
+
+.cbf__control:focus {
+	border-color: var(--cbf-accent);
+	outline: 2px solid rgba(47, 111, 237, .18);
+	outline-offset: 0;
+}
+
+.cbf__textarea {
+	min-height: 84px;
+	resize: vertical;
+}
+
+.cbf__field--invalid .cbf__control {
+	border-color: var(--cbf-error);
+}
+
+.cbf__option {
+	display: flex;
+	gap: 9px;
+	align-items: flex-start;
+	font-size: 14px;
+	color: var(--cbf-muted);
+	cursor: pointer;
+}
+
+.cbf__option + .cbf__option {
+	margin-top: 7px;
+}
+
+.cbf__option input {
+	flex: none;
+	width: 17px;
+	height: 17px;
+	margin: 1px 0 0;
+	accent-color: var(--cbf-accent);
+}
+
+.cbf__field--invalid .cbf__option input {
+	outline: 2px solid var(--cbf-error);
+	outline-offset: 1px;
+}
+
+.cbf__comment {
+	margin: 5px 0 0;
+	font-size: 13px;
+	color: var(--cbf-muted);
+}
+
+.cbf__error {
+	margin: 5px 0 0;
+	font-size: 13px;
+	color: var(--cbf-error);
+}
+
+.cbf__error--common {
+	margin-bottom: 12px;
+}
+
+.cbf__submit {
+	display: block;
+	width: 100%;
+	padding: 13px 18px;
+	border: 0;
+	border-radius: 9px;
+	background: var(--cbf-accent);
+	color: #fff;
+	font: inherit;
+	font-weight: 600;
+	cursor: pointer;
+	transition: background-color .15s ease;
+}
+
+.cbf__submit:hover:not(:disabled) {
+	background: var(--cbf-accent-dark);
+}
+
+.cbf__submit:disabled {
+	opacity: .65;
+	cursor: default;
+}
+
+.cbf__note {
+	margin: 10px 0 0;
+	font-size: 12px;
+	color: var(--cbf-muted);
+	text-align: center;
+}
+
+.cbf__done {
+	padding: 12px 0;
+	text-align: center;
+}
+
+.cbf__done-icon {
+	width: 52px;
+	height: 52px;
+	margin: 0 auto 14px;
+	border-radius: 50%;
+	background: #e8f3ea;
+	color: #2e8b47;
+	font-size: 26px;
+	line-height: 52px;
+}
+
+.cbf__done-text {
+	margin-bottom: 20px;
+}
+
+@keyframes cbf-fade {
+	from { opacity: 0; }
+}
+
+@keyframes cbf-appear {
+	from { opacity: 0; transform: translateY(14px); }
+}
+
+@media (max-width: 520px) {
+	.cbf {
+		align-items: flex-end;
+		padding: 0;
+	}
+
+	.cbf__window {
+		max-width: none;
+		max-height: 92vh;
+		padding: 24px 18px 20px;
+		border-radius: 16px 16px 0 0;
+		animation-name: cbf-slide-up;
+	}
+}
+
+@keyframes cbf-slide-up {
+	from { transform: translateY(100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.cbf__overlay,
+	.cbf__window {
+		animation: none;
+	}
+}
